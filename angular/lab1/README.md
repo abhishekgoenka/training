@@ -5,7 +5,7 @@
 # Objective
 *   Bootstrap Angular App 
 *   Understand various Angular files
-*   
+*   Understand routing
 
 # Install Angular CLI
 The Angular CLI is a tool to initialize, develop, scaffold and maintain Angular applications. [wiki](https://github.com/angular/angular-cli/wiki)
@@ -66,7 +66,7 @@ After both packages have been installed successfully, the jQuery and Bootstrap f
 * node_modules/bootstrap/dist/css/bootstrap.min.css
 * node_modules/bootstrap/dist/js/bootstrap.min.js
 
-Add the file paths to the styles and scripts array in file .angular-cli.json:
+Add the file paths to the styles and scripts array in file `.angular-cli.json`:
 
 ```json
 "styles": [
@@ -153,7 +153,22 @@ import { ReportComponent } from './report/report.component';
 export class AppRoutingModule { }
 ```
 Add `AppRoutingModule` to `app.module.ts`
-
+```typescript
+@NgModule({
+  declarations: [
+    AppComponent,
+    DataEntryComponent,
+    ReportComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
 
 # Router outlet
 Given this configuration, when the browser URL for this application becomes `/entry`, the router matches that URL to the route path `/entry` and displays the `DataEntryComponent` after a `RouterOutlet` that you've placed in the host view's HTML.
