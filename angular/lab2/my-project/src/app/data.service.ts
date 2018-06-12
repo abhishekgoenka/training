@@ -11,4 +11,8 @@ export class DataService {
   posts(): Observable<Array<Post>> {
     return this.http.get<Array<Post>>(`${this.URL}/posts`);
   }
+
+  addPost(post: Post): Observable<Post> {
+    return this.http.post<Post>(`${this.URL}/posts`, post);
+  }
 }

@@ -2,7 +2,7 @@
  * Post model
  */
 export class Post {
-  userid: number;
+  userId: number;
   id: number;
   title: string;
   body: string;

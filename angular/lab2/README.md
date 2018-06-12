@@ -1,7 +1,7 @@
 # Objective
 1. Learn angular service 
 2. Learn angular forms
-3.  
+3. Form Validation 
 
 # Add HTML Template 
 We need some `HTML` template to work with `Report` tab. Use below `HTML`
@@ -43,7 +43,7 @@ Create a post model. We will be using this model for our entire exercise.
 post.ts
 ```typescript
 export class Post {
-  userid: number;
+  userId: number;
   id: number;
   title: string;
   body: string;
@@ -116,7 +116,7 @@ report.component.html
   <tbody>
     <tr *ngFor="let post of posts">
       <td>{{post.id}}</td>
-      <td>{{post.userid}}</td>
+      <td>{{post.userId}}</td>
       <td>{{post.title}}</td>
       <td>{{post.body}}</td>
       <td class="actions"><a href="#" class="icon"><i class="s7-trash"></i></a></td>
@@ -125,3 +125,97 @@ report.component.html
 </table>
 ```
 
+# Angular Forms
+Forms are the mainstay of business applications. You use forms to log in, submit a help request, place an order, book a flight, schedule a meeting, and perform countless other data-entry tasks. [more](https://angular.io/guide/forms) 
+
+Angular offers two form-building technologies
+1. Template-driven forms - You can build forms by writing templates in the Angular template syntax with the form-specific directives and techniques described in this page. [more](https://angular.io/guide/forms)
+2. Reactive forms - Angular reactive forms facilitate a reactive style of programming that favors explicit management of the data flowing between a non-UI data model (typically retrieved from a server) and a UI-oriented form model that retains the states and values of the HTML controls on screen. Reactive forms offer the ease of using reactive patterns, testing, and validation. [more](https://angular.io/guide/reactive-forms)
+
+Add `FormsModule` to `app.module.ts`
+```typescript
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
+  ],
+```
+
+# Implementing The Form Template
+Now that the `DataEntryComponent` is available and has been added to AppModule we can continue to implement the form template in file data-entry.component.html:
+
+```html
+<h1>Add Post</h1>
+<form (ngSubmit)="onSubmit()" #postForm="ngForm">
+  <div class="form-group">
+    <label for="UserId">UserId</label>
+    <input type="text" class="form-control" id="UserId" name="UserId" required [(ngModel)] = "post.userId">
+  </div>
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" class="form-control" id="title" name="title" required [(ngModel)] = "post.title">
+  </div>
+  <div class="form-group">
+      <label for="body">Body</label>
+      <textarea type="text" class="form-control" id="body" name="body" rows="5" [(ngModel)] = "post.body"></textarea>
+  </div>
+  <button type="submit" class="btn btn-success">Submit</button>
+</form>
+```
+
+# Implementing Two-Way Data Binding
+Now that the form template is ready and the form is displayed in the browser we need to find a way to access the form data. Angular 2 offers the concept of two-way data binding which helps us to solve that problem. 
+ 
+To enable two-way data binding we need to extend the form template and use the ngModel directive in the input elements. The extended form template code with ngModel looks like the following:
+
+`<input type="text" class="form-control" id="UserId" name="UserId" required [(ngModel)] = "post.userId">`
+
+Notice that, together with `ngModel`, we also added the `name` attribute to each element. We're assinging a unique string value to this attribute. Defining a `name` attribute is a requirement when using `[(ngModel)]` in combination with a form. Why is this a requirement? For each input element with a `name` attribute assigned Angular 2 created internally a FormControl. Furthermore these FormControls are registered with an `NgForm` directive which is automatically created for each <form> element in the template code. Each `FormControl` is registered under the `name` we assigned to the `name` attribute.
+
+# Validations
+
+```html
+<h1>Add Post</h1>
+<form (ngSubmit)="onSubmit()" #postForm="ngForm">
+  <div class="form-group">
+    <label for="UserId">UserId</label>
+    <input type="text" class="form-control" id="UserId" name="UserId" required [(ngModel)] = "post.userId" #UserId="ngModel">
+    <div [hidden]="UserId.valid || UserId.pristine" class="alert alert-danger">
+          User Id is required
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" class="form-control" id="title" name="title" required [(ngModel)] = "post.title" #Title="ngModel">
+    <div [hidden]="Title.valid || Title.pristine" class="alert alert-danger">
+        Title is required
+  </div>
+  </div>
+  <div class="form-group">
+      <label for="body">Body</label>
+      <textarea type="text" class="form-control" id="body" name="body" rows="5" [(ngModel)] = "post.body"></textarea>
+  </div>
+  <button type="submit" class="btn btn-success" [disabled]="!postForm.form.valid">Submit</button>
+</form>
+
+```
+
+# Show Success Message
+Let's imporve user interface by adding success message. 
+
+```html
+<div class="alert alert-success" role="alert" style="margin-top: 10px" *ngIf="isSuccess">
+      Record saved successfully !!!
+</div>
+```
+
+```typescript
+onSubmit() {
+    this.dataService.addPost(this.post).subscribe(post => {
+      if (post) {
+        this.isSuccess = true;
+      }
+    });
+  }
+```

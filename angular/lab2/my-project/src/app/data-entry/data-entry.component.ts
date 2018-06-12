@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Post } from '../post';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-data-entry',
@@ -6,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./data-entry.component.css']
 })
 export class DataEntryComponent implements OnInit {
-
-  constructor() { }
+  post: Post = new Post();
+  isSuccess = false;
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
   }
 
+  onSubmit() {
+    this.dataService.addPost(this.post).subscribe(post => {
+      if (post) {
+        this.isSuccess = true;
+      }
+    });
+  }
 }
