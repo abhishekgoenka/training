@@ -129,8 +129,8 @@ report.component.html
 Forms are the mainstay of business applications. You use forms to log in, submit a help request, place an order, book a flight, schedule a meeting, and perform countless other data-entry tasks. [more](https://angular.io/guide/forms) 
 
 Angular offers two form-building technologies
-1. Template-driven forms - You can build forms by writing templates in the Angular template syntax with the form-specific directives and techniques described in this page. [more](https://angular.io/guide/forms)
-2. Reactive forms - Angular reactive forms facilitate a reactive style of programming that favors explicit management of the data flowing between a non-UI data model (typically retrieved from a server) and a UI-oriented form model that retains the states and values of the HTML controls on screen. Reactive forms offer the ease of using reactive patterns, testing, and validation. [more](https://angular.io/guide/reactive-forms)
+1. **Template-driven forms** - You can build forms by writing templates in the Angular template syntax with the form-specific directives and techniques described in this page. [more](https://angular.io/guide/forms)
+2. **Reactive forms** - Angular reactive forms facilitate a reactive style of programming that favors explicit management of the data flowing between a non-UI data model (typically retrieved from a server) and a UI-oriented form model that retains the states and values of the HTML controls on screen. Reactive forms offer the ease of using reactive patterns, testing, and validation. [more](https://angular.io/guide/reactive-forms)
 
 Add `FormsModule` to `app.module.ts`
 ```typescript
@@ -167,11 +167,11 @@ Now that the `DataEntryComponent` is available and has been added to AppModule w
 # Implementing Two-Way Data Binding
 Now that the form template is ready and the form is displayed in the browser we need to find a way to access the form data. Angular 2 offers the concept of two-way data binding which helps us to solve that problem. 
  
-To enable two-way data binding we need to extend the form template and use the ngModel directive in the input elements. The extended form template code with ngModel looks like the following:
+To enable two-way data binding we need to extend the form template and use the `ngModel` directive in the input elements. The extended form template code with ngModel looks like the following:
 
 `<input type="text" class="form-control" id="UserId" name="UserId" required [(ngModel)] = "post.userId">`
 
-Notice that, together with `ngModel`, we also added the `name` attribute to each element. We're assinging a unique string value to this attribute. Defining a `name` attribute is a requirement when using `[(ngModel)]` in combination with a form. Why is this a requirement? For each input element with a `name` attribute assigned Angular 2 created internally a FormControl. Furthermore these FormControls are registered with an `NgForm` directive which is automatically created for each <form> element in the template code. Each `FormControl` is registered under the `name` we assigned to the `name` attribute.
+Notice that, together with `ngModel`, we also added the `name` attribute to each element. We're assinging a unique string value to this attribute. Defining a `name` attribute is a requirement when using `[(ngModel)]` in combination with a form. Why is this a requirement? For each input element with a `name` attribute assigned Angular 2 created internally a FormControl. Furthermore these FormControls are registered with an `NgForm` directive which is automatically created for each `<form>` element in the template code. Each `FormControl` is registered under the `name` we assigned to the `name` attribute.
 
 # Validations
 
@@ -218,4 +218,91 @@ onSubmit() {
       }
     });
   }
+```
+Todo
+1. Add error message.
+2. Add Reset button
+
+# Reactive forms
+Create a new component so we don't pollute existing.
+> ng g component dataEntryReactive --spec=false --inline-style
+
+# Import the ReactiveFormsModule
+To create a Reactive form, you need to import  the `ReactiveFormsModule` from @angular/forms and add it to the imports array in `app.module.ts`.
+```typescript
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+```
+
+# Tracking the State Using FormControl
+While building forms with the reactive forms strategy, you won't come across the ngModel and ngForm directives. Instead, we use the underlying FormControl and FormGroup API.
+
+A FormControl is a directive used to create a FormControl instance that you can use to keep track of a particular form element's state and its validation status.
+
+data-entry-reactive.component.html
+```html
+<h1>Add Post - Reactive</h1>
+<form (ngSubmit)="onSubmit()" [formGroup]="postForm">
+  <div class="form-group">
+    <label for="UserId">UserId</label>
+    <input type="text" class="form-control" id="UserId" name="UserId" formControlName = "userId">
+    <div *ngIf="postForm['controls'].userId.invalid && postForm['controls'].userId.touched" class="alert alert-danger">
+          User Id is required
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" class="form-control" id="title" name="title" required formControlName = "title">
+    <div *ngIf="postForm['controls'].title.invalid && postForm['controls'].title.touched" class="alert alert-danger">
+        Title is required
+    </div>
+  </div>
+  <div class="form-group">
+      <label for="body">Body</label>
+      <textarea type="text" class="form-control" id="body" name="body" rows="5" formControlName = "body"></textarea>
+  </div>
+  <button type="submit" class="btn btn-success" [disabled]="!postForm.valid">Submit</button>
+
+  <div class="alert alert-success" role="alert" style="margin-top: 10px" *ngIf="isSuccess">
+      Record saved successfully !!!
+  </div>
+
+</form>
+```
+
+data-entry-reactive.component.ts
+```typescript
+export class DataEntryReactiveComponent implements OnInit {
+  isSuccess = false;
+  postForm: FormGroup;
+  constructor(private fb: FormBuilder,
+    private dataService: DataService) {
+      this.createForm();
+    }
+
+  ngOnInit() {
+  }
+
+  createForm() {
+    this.postForm = this.fb.group({
+      userId: new FormControl('', Validators.required),
+      title: new FormControl('', Validators.required),
+      body: new FormControl()
+    });
+  }
+
+  onSubmit() {
+    const newPost: Post = this.postForm.value;
+    this.dataService.addPost(newPost).subscribe(post => {
+      if (post) {
+        this.isSuccess = true;
+      }
+    });
+  }
+}
 ```
