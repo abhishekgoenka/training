@@ -1,0 +1,29 @@
+<h1>Add Post</h1>
+<form (ngSubmit)="onSubmit()" #postForm="ngForm">
+  <div class="form-group">
+    <label for="UserId">UserId</label>
+    <input type="text" class="form-control" id="UserId" name="UserId" required [(ngModel)] = "post.userId" #UserId="ngModel">
+    <div [hidden]="UserId.valid || UserId.pristine" class="alert alert-danger">
+          User Id is required
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" class="form-control" id="title" name="title" required [(ngModel)] = "post.title" #Title="ngModel">
+    <div [hidden]="Title.valid || Title.pristine" class="alert alert-danger">
+        Title is required
+  </div>
+  </div>
+  <div class="form-group">
+      <label for="body">Body</label>
+      <textarea type="text" class="form-control" id="body" name="body" rows="5" [(ngModel)] = "post.body"></textarea>
+  </div>
+  <button type="submit" class="btn btn-success" [disabled]="!postForm.form.valid">Submit</button>
+
+  <div class="alert alert-success" role="alert" style="margin-top: 10px" *ngIf="isSuccess">
+      Record saved successfully !!!
+  </div>
+
+</form>
+
+
