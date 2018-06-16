@@ -31,7 +31,7 @@ Include js and css files in angular-cli.json
       ],
 ```
 
-**Delete**
+### Delete
 data.service.ts
 ```typescript
   deletePost(post: Post): Observable<any> {
@@ -48,9 +48,105 @@ report.component.html
 report.component.ts
 ```typescript
   delete(post: Post) {
-    this.dataService.deletePost(post).subscribe(() => toastr.success(`Record deleted`));
+    this.dataService.deletePost(post).subscribe(() => toastr.success(`Record deleted`), () => toastr.error(`Error Occurred`));
   }
 ```
 Since toastr is global JavaScript variable. Declare this variable at top of TypeScript file
 > declare var toastr;
 
+### Edit Record
+Add edit method in `report.component.ts`
+```typescript
+  edit(post: Post) {
+    this.router.navigate(['entry', post.id]);
+  }
+```
+
+Don't forget to inject router module
+```typescript
+ constructor(
+      private router: Router,
+      private dataService: DataService) { }
+```
+
+Update the `report.component.html`
+```html
+<td>
+  <button class="btn btn-link far fa-edit" (click)="edit(post)"></button>
+  <button class="btn btn-link far fa-trash-alt" (click)="delete(post)"></button>
+</td>
+```
+
+On click of edit, we are routing to `http://localhost:4200/entry/1`; where 1 is entry id. We don't have this route. Therefore, create one in `app-routing.module.ts`
+```typescript
+@NgModule({
+  imports: [
+    RouterModule.forRoot([
+      {
+        path: '',
+        redirectTo: '/entry',
+        pathMatch: 'full'
+      },
+      { path: 'entry/:id', component: DataEntryComponent },
+      { path: 'entry', component: DataEntryComponent },
+      { path: 'report', component: ReportComponent }
+    ])
+  ],
+  exports: [RouterModule]
+})
+```
+Get the id value on `data-entry.component.ts` initialize
+```typescript
+  ngOnInit() {
+    this.route.params.subscribe(res => {
+      console.log(res.id);
+    });
+  }
+```
+Don't forget to inject `ActivatedRoute` module
+```typescript
+ constructor(
+    private dataService: DataService,
+    private route: ActivatedRoute) { }
+```
+
+Add a method in `data.service.ts` to get post by id
+```typescript
+  postById(id: number): Observable<Post> {
+    return this.http.get<Post>(`${this.URL}/posts/${id}`);
+  }
+```
+
+Use this method in data-entry.component.ts
+```typescript
+  ngOnInit() {
+    this.route.params.subscribe(res => {
+      if (res.id) {
+        this.dataService.postById(res.id).subscribe(p => {
+          this.post = p;
+          this.editMode = true;
+        }, () => toastr.error(`Error Occurred`));
+      }
+    });
+  }
+```
+
+Add a method in `data.service.ts` to update post by id
+```typescript
+  updatePost(post: Post): Observable<Post> {
+    return this.http.put<Post>(`${this.URL}/posts/${post.id}`, post);
+  }
+```
+
+Also you will have to update save method
+```typescript
+onSubmit() {
+    if (this.editMode) {
+      this.dataService.updatePost(this.post).subscribe(() => toastr.success(`Record Updated`), () => toastr.error(`Error Occurred`));
+    } else {
+      this.dataService.addPost(this.post).subscribe(() => toastr.success(`Record saved`), () => toastr.error(`Error Occurred`));
+    }
+  }
+```
+
+Now all the CRUD operations should be working fine.

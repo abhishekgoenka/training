@@ -19,11 +19,6 @@
       <textarea type="text" class="form-control" id="body" name="body" rows="5" [(ngModel)] = "post.body"></textarea>
   </div>
   <button type="submit" class="btn btn-success" [disabled]="!postForm.form.valid">Submit</button>
-
-  <div class="alert alert-success" role="alert" style="margin-top: 10px" *ngIf="isSuccess">
-      Record saved successfully !!!
-  </div>
-
 </form>
 
 

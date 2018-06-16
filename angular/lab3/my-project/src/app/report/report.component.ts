@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Post } from '../post';
+import { Router } from '@angular/router';
 
 declare var toastr;
 @Component({
@@ -11,6 +12,7 @@ declare var toastr;
 export class ReportComponent implements OnInit {
   posts: Array<Post>;
   constructor(
+      private router: Router,
       private dataService: DataService) { }
 
   ngOnInit() {
@@ -18,6 +20,10 @@ export class ReportComponent implements OnInit {
   }
 
   delete(post: Post) {
-    this.dataService.deletePost(post).subscribe(() => toastr.success(`Record deleted`));
+    this.dataService.deletePost(post).subscribe(() => toastr.success(`Record deleted`), () => toastr.error(`Error Occurred`));
+  }
+
+  edit(post: Post) {
+    this.router.navigate(['entry', post.id]);
   }
 }

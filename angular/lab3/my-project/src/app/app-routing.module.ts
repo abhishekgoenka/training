@@ -11,6 +11,7 @@ import { DataEntryReactiveComponent } from './data-entry-reactive/data-entry-rea
         redirectTo: '/entry',
         pathMatch: 'full'
       },
+      { path: 'entry/:id', component: DataEntryComponent },
       { path: 'entry', component: DataEntryComponent },
       { path: 'report', component: ReportComponent }
     ])

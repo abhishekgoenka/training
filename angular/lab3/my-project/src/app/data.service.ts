@@ -12,11 +12,19 @@ export class DataService {
     return this.http.get<Array<Post>>(`${this.URL}/posts`);
   }
 
+  postById(id: number): Observable<Post> {
+    return this.http.get<Post>(`${this.URL}/posts/${id}`);
+  }
+
   addPost(post: Post): Observable<Post> {
     return this.http.post<Post>(`${this.URL}/posts`, post);
   }
 
   deletePost(post: Post): Observable<any> {
     return this.http.delete(`${this.URL}/posts/${post.id}`);
+  }
+
+  updatePost(post: Post): Observable<Post> {
+    return this.http.put<Post>(`${this.URL}/posts/${post.id}`, post);
   }
 }
