@@ -2,6 +2,40 @@
 1. Learn Edit and Delete feature of Form 
 2. 
 
+# JSON Server
+Get JSON server so we can test our APIs. [more](https://github.com/typicode/json-server)
+
+### Install
+> npm install -g json-server
+
+### Create a db.json file
+```json
+{
+  "posts": [
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "json-server",
+      "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
+```
+
+### Start JSON Server
+> npm run server
+
+
 # Add Edit and Delete Feature
 We would first need Edit and Delete icon. We will use [Font Awesome](https://fontawesome.com/) for icons.
 

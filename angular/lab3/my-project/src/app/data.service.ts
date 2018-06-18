@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class DataService {
-  private URL = 'https://jsonplaceholder.typicode.com';
+  private URL = 'http://localhost:3000';
   constructor(private http: HttpClient) { }
 
   posts(): Observable<Array<Post>> {
