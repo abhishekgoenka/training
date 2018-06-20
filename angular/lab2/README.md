@@ -76,6 +76,9 @@ you need to import the Angular `HttpClientModule`. [more](https://angular.io/gui
 
 JSONPlaceholder is a free online REST service that you can use whenever you need some fake data [more](https://jsonplaceholder.typicode.com/). We will use JSONPlaceholder for all our RESTful requests.
 
+# HTTPClient
+When Angular 2 was first released in September 2016, you made HTTP calls with it by first importing the HTTP module, and then using a class simply named HTTP that included methods for making HTTP requests. It worked fine, but the API was a little clunky, and it was missing some nice features that developers appreciated in the 1.X version of Angular now known as Angular JS. So, in version 4.3 of Angular, which was released of July 2017, the Angular team added a completely new set of APIs for making HTTP requests. They're in a module named `HttpClientModule`, and the class you use to make requests is named `HttpClient`. Beginning with the release of Angular 5 in November 2017, the older HTTP module has been deprecated. 
+
 # GET Posts
 Now, let us write a method to get all the posts.
 
