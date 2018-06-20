@@ -32,8 +32,27 @@ Get JSON server so we can test our APIs. [more](https://github.com/typicode/json
 }
 ```
 
-### Start JSON Server
-> npm run server
+### Add NPM Script
+project.json
+```json
+"scripts": {
+    "ng": "ng",
+    "start": "concurrently --kill-others \"npm run server\" \"npm run client\"",
+    "client": "ng serve",
+    "build": "ng build --prod",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "server": "json-server --watch db.json"
+  },
+```
+
+### Start Application
+Add `concurrently` npm module to start `Angular` and `json-server` at the same time
+> npm install concurrently --save-dev
+
+Start 
+> npm start
 
 
 # Add Edit and Delete Feature
@@ -202,7 +221,9 @@ We will use following tools
 
 ## Run Test
 > npm run test
+
 or
+
 > npm test
 
 ### data-entry.component.spec.ts
