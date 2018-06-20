@@ -1,6 +1,6 @@
 # Objective
 1. Learn Edit and Delete feature of Form 
-2. 
+2. Unit Testing
 
 # Add Edit and Delete Feature
 We would first need Edit and Delete icon. We will use [Font Awesome](https://fontawesome.com/) for icons.
@@ -150,3 +150,25 @@ onSubmit() {
 ```
 
 Now all the CRUD operations should be working fine.
+
+# Testing
+Two types of test cases we can write in Angular. 
+1. Unit Tests
+2. Integration and Functional Testing or End-to-End Tests
+
+## Unit Tests in Angular
+We will use following tools
+1. Karma - Spectacular Test Runner for Javascript [more](https://karma-runner.github.io/2.0/index.html)
+2. Jasmine - Jasmine is a behavior-driven development framework for testing JavaScript code. It does not depend on any other JavaScript frameworks. It does not require a DOM. And it has a clean, obvious syntax so that you can easily write tests. [more](https://jasmine.github.io/)
+
+## Writing Good Unit Tests
+* **Arrange** all necessary preconditions and inputs
+* **Act** on the object or class under test
+* **Assert** that the expected results have occurred
+
+## Run Test
+> npm run test
+or
+> npm test
+
+### data-entry.component.spec.ts
