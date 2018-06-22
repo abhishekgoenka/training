@@ -203,7 +203,15 @@ Notice that, together with `ngModel`, we also added the `name` attribute to each
 </form>
 
 ```
+# Add Post Request
+I'm going to add the new `Post` by making an HTTP request with the post verb. I can do that by using the post method available on the `HttpClient`. By convention, when a resource is added to a REST service with a post request, the newly-added resource is returned in the body of the `HttpResponse`. That object will also be the object that gets wrapped into the observable returned by Angular's `HttpClient`. Therefore, I'm going to specify the type of that object, Post, as the generic parameter on the method. I'm also returning from this method the same observable returned by the post method, which is why the return type of addPost is an Observable of Post. Just like the get method we've already seen, the first parameter to post is the URL where the request will be sent. I'm adding a Post, so the URL is the same address I used when retrieving all posts, /api/posts. The server will interpret the two requests differently because of the different HTTP verbs being used. The second parameter I'll pass is the book object to be added, which is the newPost parameter passed into this method. 
 
+data.service.ts
+```typescript
+  addPost(newPost: Post): Observable<Post> {
+    return this.http.post<Post>(`${this.URL}/posts`, newPost);
+  }
+```
 # Show Success Message
 Let's imporve user interface by adding success message. 
 
