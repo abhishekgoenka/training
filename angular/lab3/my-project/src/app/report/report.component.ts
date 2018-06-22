@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { Post } from '../post';
+import { Post } from '../model/post';
 import { Router } from '@angular/router';
+import { ApplicationError } from '../model/ApplicationError';
 
 declare var toastr;
 @Component({
@@ -20,7 +21,8 @@ export class ReportComponent implements OnInit {
   }
 
   delete(post: Post) {
-    this.dataService.deletePost(post).subscribe(() => toastr.success(`Record deleted`), () => toastr.error(`Error Occurred`));
+    this.dataService.deletePost(post).subscribe(() => toastr.success(`Record deleted`)
+    , (error: ApplicationError) => toastr.error(`Error Occurred : ${error.errorMsg}`));
   }
 
   edit(post: Post) {

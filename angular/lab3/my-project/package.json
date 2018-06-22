@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "concurrently --kill-others \"npm run server\" \"npm run client\"",
-    "client": "ng serve",
+    "client": "ng serve --open",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Post } from '../post';
+import { Post } from '../model/post';
 import { DataService } from '../data.service';
 import { ActivatedRoute } from '@angular/router';
+import { ApplicationError } from '../model/ApplicationError';
 declare var toastr;
 @Component({
   selector: 'app-data-entry',
@@ -18,7 +19,7 @@ export class DataEntryComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(res => {
       if (res.id) {
-        this.dataService.postById(res.id).subscribe(p => {
+        this.dataService.postById(res.id).subscribe((p: Post) => {
           this.post = p;
           this.editMode = true;
         }, () => toastr.error(`Error Occurred`));
@@ -28,9 +29,11 @@ export class DataEntryComponent implements OnInit {
 
   onSubmit() {
     if (this.editMode) {
-      this.dataService.updatePost(this.post).subscribe(() => toastr.success(`Record Updated`), () => toastr.error(`Error Occurred`));
+      this.dataService.updatePost(this.post).subscribe(() => toastr.success(`Record Updated`)
+      , (error: ApplicationError) => toastr.error(`Error Occurred : ${error.errorMsg}`));
     } else {
-      this.dataService.addPost(this.post).subscribe(() => toastr.success(`Record saved`), () => toastr.error(`Error Occurred`));
+      this.dataService.addPost(this.post).subscribe(() => toastr.success(`Record saved`)
+      , (error: ApplicationError) => toastr.error(`Error Occurred : ${error.errorMsg}`));
     }
   }
 }

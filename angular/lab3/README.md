@@ -186,8 +186,8 @@ Use this method in data-entry.component.ts
 
 Add a method in `data.service.ts` to update post by id
 ```typescript
-  updatePost(post: Post): Observable<Post> {
-    return this.http.put<Post>(`${this.URL}/posts/${post.id}`, post);
+  updatePost(post: Post): Observable<any> {
+    return this.http.put(`${this.URL}/posts/${post.id}`, post);
   }
 ```
 
