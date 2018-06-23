@@ -151,9 +151,8 @@ On click of edit, we are routing to `http://localhost:4200/entry/1`; where 1 is 
 Get the id value on `data-entry.component.ts` initialize
 ```typescript
   ngOnInit() {
-    this.route.params.subscribe(res => {
-      console.log(res.id);
-    });
+    const id = +this.route.snapshot.paramMap.get('id');
+    console.log(id);
   }
 ```
 Don't forget to inject `ActivatedRoute` module
@@ -173,14 +172,13 @@ Add a method in `data.service.ts` to get post by id
 Use this method in data-entry.component.ts
 ```typescript
   ngOnInit() {
-    this.route.params.subscribe(res => {
-      if (res.id) {
-        this.dataService.postById(res.id).subscribe(p => {
-          this.post = p;
-          this.editMode = true;
-        }, () => toastr.error(`Error Occurred`));
-      }
-    });
+    const id = +this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.dataService.postById(id).subscribe((p: Post) => {
+        this.post = p;
+        this.editMode = true;
+      }, () => toastr.error(`Error Occurred`));
+    }
   }
 ```
 
@@ -226,4 +224,65 @@ or
 
 > npm test
 
+Instead of just running `ng test`, I want to run `ng test` with a specific flag. I'm going to turn off the source maps by setting `--sourcemaps=false`. [more](https://github.com/angular/angular-cli/wiki/test)
+
+You might think that turning off the source maps is a bad thing to do, but it turns out that the way that Karma and zone interact on certain kinds of failing tests, this is actually the way to see what's really going on. It's possible in the future that this isn't a necessary step, but for now I highly recommend you do this in your unit testing, and we're going to use that flag in this course. [more](https://angular.io/guide/testing)
+
+### my first test
+```typescript
+describe('DataEntryComponent', () => {
+  it('my first test', () => {
+    expect(true).toBe(true);
+  });
+});
+```
+### The TestBed
+It's time now to begin writing our first integration test. This is going to be a shallow integration test, meaning that we're only going to test a single component and none of its child components or directives.
+
+We're going to use a special utility called the `TestBed`. The `TestBed` is what allows us to test both the component and its template running together. And really what's going to happen is we're going to create a special module just for testing purposes. We do that again with the `TestBed` object, and I'm going to import that object from `@angular/core/testing`, and we can see that imported up here.
+
 ### data-entry.component.spec.ts
+Initialize component test
+```typescript
+describe('DataEntryComponent', () => {
+  let fixture: ComponentFixture<DataEntryComponent>;
+  let component: DataEntryComponent;
+  let mockdataService, mockActivatedRoute;
+  beforeEach(() => {
+    mockdataService = jasmine.createSpyObj(['']);
+    mockActivatedRoute = {
+      snapshot: { paramMap: { get: () => null}}
+    };
+    TestBed.configureTestingModule({
+      imports: [FormsModule],
+      declarations: [DataEntryComponent],
+      providers: [
+        {provide: ActivatedRoute, useValue: mockActivatedRoute},
+        {provide: DataService, useValue: mockdataService}
+      ]
+    });
+    fixture = TestBed.createComponent(DataEntryComponent);
+    component = fixture.componentInstance;
+  });
+
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+```
+You can create a component fixture with TestBed.createComponent. Fixtures have access to a debugElement, which will give you access to the internals of the component fixture.
+Change detection isn’t done automatically, so you’ll call detectChanges on a fixture to tell Angular to run change detection.
+```typescript
+  it('all the fields should be empty', () => {
+
+    // To trigger change detection we call the function fixture.detectChanges()
+    fixture.detectChanges();
+
+    const userid = fixture.debugElement.query(By.css('#UserId'));
+    expect(userid.nativeElement.textContent).toBe('');
+
+    // todo : test for other 2 fields.
+  });
+```
+

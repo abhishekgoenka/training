@@ -27,7 +27,7 @@ export class DataService {
   }
 
   deletePost(post: Post): Observable<any | ApplicationError> {
-    return this.http.delete(`${this.URL}/posts/a/${post.id}`)
+    return this.http.delete(`${this.URL}/posts/${post.id}`)
     .pipe(catchError(error => this.HandleHTTPError(error)));
   }
 

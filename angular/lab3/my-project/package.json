@@ -7,7 +7,7 @@
     "start": "concurrently --kill-others \"npm run server\" \"npm run client\"",
     "client": "ng serve --open",
     "build": "ng build --prod",
-    "test": "ng test",
+    "test": "ng test --sourcemaps=false",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "server": "json-server --watch db.json"

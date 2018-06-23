@@ -17,14 +17,13 @@ export class DataEntryComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.params.subscribe(res => {
-      if (res.id) {
-        this.dataService.postById(res.id).subscribe((p: Post) => {
-          this.post = p;
-          this.editMode = true;
-        }, () => toastr.error(`Error Occurred`));
-      }
-    });
+    const id = +this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.dataService.postById(id).subscribe((p: Post) => {
+        this.post = p;
+        this.editMode = true;
+      }, () => toastr.error(`Error Occurred`));
+    }
   }
 
   onSubmit() {
