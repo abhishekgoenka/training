@@ -305,6 +305,8 @@ Change detection isn’t done automatically, so you’ll call detectChanges on a
     });
   });
 ```
+
+### data-entry.component.edit.spec.ts
 ```typescript
   it('should be allowed to update record', () => {
     // To trigger change detection we call the function fixture.detectChanges()

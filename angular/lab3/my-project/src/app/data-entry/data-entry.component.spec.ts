@@ -4,6 +4,8 @@ import { DataService } from '../data.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { Post } from '../model/post';
+import { of } from 'rxjs/observable/of';
 
 describe('DataEntryComponent', () => {
   let fixture: ComponentFixture<DataEntryComponent>;
@@ -25,6 +27,8 @@ describe('DataEntryComponent', () => {
     });
     fixture = TestBed.createComponent(DataEntryComponent);
     component = fixture.componentInstance;
+
+    mockdataService.addPost.and.returnValue(of<Post>( {id: 1, title: 'dummy title', body: 'dummy body', userId : 1}));
   });
 
 

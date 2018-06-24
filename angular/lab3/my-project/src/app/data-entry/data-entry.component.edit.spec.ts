@@ -31,6 +31,7 @@ describe('DataEntryComponent Edit', () => {
     component = fixture.componentInstance;
 
     mockdataService.postById.and.returnValue(of<Post>( {id: 1, title: 'dummy title', body: 'dummy body', userId : 1}));
+    mockdataService.updatePost.and.returnValue(of({}));
   });
 
 
