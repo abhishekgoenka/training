@@ -74,7 +74,7 @@ The final thing we're going to do is look at how to generate a code coverage rep
 
 # End-to-End Testing
 `Protractor` is an official library to used for writing E2E test suites with an Angular app. It’s nothing but a wrapper over the Selenium WebDriverJS Api that translates its succinct code and methods to WebDriver JS methods. That said, you can use WebDriverJS methods too inside your e2e script.
-![Image](https://octodex.github.com/images/yaktocat.png)
+![Image](https://github.com/abhishekgoenka/training/blob/master/angular/lab4/git/protectorjs.png)
 
 ### Writing the first Test Suite
 All we need to be concerned about is this folder, `e2e`. `app.e2e-spec.ts` is the main entry file of our automation script.
