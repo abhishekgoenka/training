@@ -1,4 +1,4 @@
-import { AppPage } from './app.po';
+import { AppPage } from './po/app.po';
 
 describe('my-project App', () => {
   let page: AppPage;
@@ -7,8 +7,8 @@ describe('my-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should have right title', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+    expect(page.getPageTitle()).toEqual('MyProject');
   });
 });

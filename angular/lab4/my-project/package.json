@@ -8,6 +8,7 @@
     "client": "ng serve --open",
     "build": "ng build --prod",
     "test": "ng test --sourcemaps=false",
+    "testauto": "ng test --watch=false --single-run=true --browsers=ChromeHeadless -cc true",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "server": "json-server --watch db.json"

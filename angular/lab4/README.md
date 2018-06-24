@@ -56,7 +56,7 @@ beforeEach(() => {
     httpTestingController.verify();
   });
 ```
-We can also `httpTestingController.verify();` method to `afterEach`, as it is required for all the tests.
+We can also move `httpTestingController.verify();` method to `afterEach`, as it is required for all the tests.
 ```typescript
   afterEach(() => {
     httpTestingController.verify();
@@ -64,3 +64,48 @@ We can also `httpTestingController.verify();` method to `afterEach`, as it is re
 ```
 **Todo** : Test other methods of DataService.
 
+# Code Coverage
+The final thing we're going to do is look at how to generate a code coverage report. Thankfully, because of the CLI, generating code coverage reports is fairly straightforward. Now you either need to have the CLI installed globally or you'll have to add an npm script to your package.json.
+```json
+"scripts": {
+    "testauto": "ng test --watch=false --single-run=true --browsers=ChromeHeadless -cc true",
+  },
+```
+
+# End-to-End Testing
+`Protractor` is an official library to used for writing E2E test suites with an Angular app. It’s nothing but a wrapper over the Selenium WebDriverJS Api that translates its succinct code and methods to WebDriver JS methods. That said, you can use WebDriverJS methods too inside your e2e script.
+![Image](https://octodex.github.com/images/yaktocat.png)
+
+### Writing the first Test Suite
+All we need to be concerned about is this folder, `e2e`. `app.e2e-spec.ts` is the main entry file of our automation script.
+
+app.e2e-spec.ts
+```typescript
+describe('my-project App', () => {
+  let page: AppPage;
+
+  beforeEach(() => {
+    page = new AppPage();
+  });
+
+  it('should have right title', () => {
+    page.navigateTo();
+    expect(page.getPageTitle()).toEqual('MyProject');
+  });
+});
+```
+app.po.ts
+```typescript
+import { browser, by, element } from 'protractor';
+
+export class AppPage {
+  navigateTo() {
+    return browser.get('/');
+  }
+
+  getPageTitle() {
+    return browser.getTitle();
+  }
+}
+```
+Now, lets run our test suite using `npm run e2e`. Don't forget to start the server before running test.
