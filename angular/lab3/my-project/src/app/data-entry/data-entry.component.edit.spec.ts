@@ -12,7 +12,7 @@ describe('DataEntryComponent Edit', () => {
   let component: DataEntryComponent;
   let mockdataService, mockActivatedRoute;
   beforeEach(() => {
-    mockdataService = jasmine.createSpyObj(['postById']);
+    mockdataService = jasmine.createSpyObj(['postById', 'updatePost']);
     mockActivatedRoute = {
       snapshot: { paramMap: { get: () => {
         return 3;
@@ -38,26 +38,23 @@ describe('DataEntryComponent Edit', () => {
     expect(component).toBeTruthy();
   });
 
-  it('edit should show previous record', () => {
+  it('should be allowed to update record', () => {
     // To trigger change detection we call the function fixture.detectChanges()
     fixture.detectChanges();
 
+    expect(component.editMode).toBeTruthy();
+    expect(component.post.id).toBe(1);
+    expect(component.post.title).toBe('dummy title');
+
+    expect(mockdataService.postById).toHaveBeenCalledTimes(1);
+
     fixture.whenStable().then(() => {
-      expect(component.editMode).toBeTruthy();
-      expect(component.post.id).toBe(1);
-      expect(component.post.title).toBe('dummy title');
-
       const userid = fixture.debugElement.query(By.css('#UserId'));
-      expect(userid.nativeElement.textContent).toBe('');
+      expect(userid.nativeElement.value).toBe('1');
+      // todo : test for other 2 fields.
 
+      component.onSubmit();
+      expect(mockdataService.updatePost).toHaveBeenCalledTimes(1);
     });
-
-    // expect(component.post.id).toBe(1);
-    // expect(component.post.title).toBe('dummy title');
-
-    // const userid = fixture.debugElement.query(By.css('#UserId'));
-    // expect(userid.nativeElement.textContent).toBe('');
-
-    // todo : test for other 2 fields.
   });
 });

@@ -279,10 +279,50 @@ Change detection isn’t done automatically, so you’ll call detectChanges on a
     // To trigger change detection we call the function fixture.detectChanges()
     fixture.detectChanges();
 
+    expect(component.editMode).toBeFalsy();
     const userid = fixture.debugElement.query(By.css('#UserId'));
     expect(userid.nativeElement.textContent).toBe('');
 
     // todo : test for other 2 fields.
   });
-```
 
+    it('should be allowed to add record', () => {
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      const userid = fixture.debugElement.query(By.css('#UserId'));
+      userid.nativeElement.value = 3;
+      const title = fixture.debugElement.query(By.css('#title'));
+      title.nativeElement.value = 'title testing...';
+      const body = fixture.debugElement.query(By.css('#body'));
+      body.nativeElement.value = 'body testing...';
+
+      expect(userid.nativeElement.value).toBe('3');
+      // todo : test for other 2 fields.
+
+      component.onSubmit();
+      expect(mockdataService.addPost).toHaveBeenCalledTimes(1);
+    });
+  });
+```
+```typescript
+  it('should be allowed to update record', () => {
+    // To trigger change detection we call the function fixture.detectChanges()
+    fixture.detectChanges();
+
+    expect(component.editMode).toBeTruthy();
+    expect(component.post.id).toBe(1);
+    expect(component.post.title).toBe('dummy title');
+
+    expect(mockdataService.postById).toHaveBeenCalledTimes(1);
+
+    fixture.whenStable().then(() => {
+      const userid = fixture.debugElement.query(By.css('#UserId'));
+      expect(userid.nativeElement.value).toBe('1');
+      // todo : test for other 2 fields.
+
+      component.onSubmit();
+      expect(mockdataService.updatePost).toHaveBeenCalledTimes(1);
+    });
+  });
+```
