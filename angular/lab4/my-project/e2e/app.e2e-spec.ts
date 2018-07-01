@@ -36,6 +36,5 @@ describe('my-project App', () => {
         });
       });
     });
-
   });
 });

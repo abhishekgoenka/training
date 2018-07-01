@@ -108,7 +108,7 @@ export class AppPage {
   }
 }
 ```
-Now, lets run our test suite using `npm run e2e`. Don't forget to start the server before running test.
+Now, lets run our test suite using `npm run e2e`. __Don't forget to start the server before running test__.
 
 ### Add Debugging support
 ```json
@@ -126,7 +126,7 @@ Now, lets run our test suite using `npm run e2e`. Don't forget to start the serv
 }
 ```
 
-### Test - should be on entry page
+### New Test - should be on entry page
 Let's add new test
 entry.po.ts
 ```typescript
@@ -149,7 +149,7 @@ describe('my-project App', () => {
 });
 ```
 
-### Test - should add new record
+### New Test - should add new record
 ```typescript
   it('should add new record', () => {
     entry.setValue('UserId', '1000').then(() => {
