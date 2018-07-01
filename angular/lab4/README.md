@@ -109,3 +109,77 @@ export class AppPage {
 }
 ```
 Now, lets run our test suite using `npm run e2e`. Don't forget to start the server before running test.
+
+### Add Debugging support
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+      {
+          "type": "node",
+          "request": "launch",
+          "name": "Run Protractor",
+          "program": "${workspaceRoot}/node_modules/protractor/bin/protractor",
+          "args": ["${workspaceRoot}/protractor.conf.js"]
+      }
+  ]
+}
+```
+
+### Test - should be on entry page
+Let's add new test
+entry.po.ts
+```typescript
+import { browser, by, element, promise } from 'protractor';
+export class EntryPage {
+  getCurrentUrl(): promise.Promise<string> {
+    return browser.getCurrentUrl();
+  }
+}
+```
+
+Add new test
+```typescript
+describe('my-project App', () => {
+  it('should be on entry page', () => {
+    entry.getCurrentUrl().then(url => {
+      expect(url).toContain('/entry');
+    });
+  });
+});
+```
+
+### Test - should add new record
+```typescript
+  it('should add new record', () => {
+    entry.setValue('UserId', '1000').then(() => {
+      entry.setValue('title', 'test title').then(() => {
+        entry.setValue('body', 'test body').then(() => {
+          entry.submitButton().click().then(() => {
+            entry.successMsg().getText().then(msg => {
+              browser.sleep(500).then(() => {
+                expect(msg).toBe('Record saved');
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+```
+entry.po.ts
+```typescript
+  setValue(ele: string, val: string) {
+    return element(by.id(ele)).sendKeys(val);
+  }
+  submitButton() {
+    return element(by.className('btn btn-success'));
+  }
+  successMsg() {
+    return element(by.className('toast toast-success'));
+  }
+```
+
+# Package
+`ng build` compiles the application into an output directory. The build artifacts will be stored in the `dist/` directory. [more](https://github.com/angular/angular-cli/wiki/build)
+> npm run build
