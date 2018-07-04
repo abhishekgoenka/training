@@ -117,9 +117,9 @@ The prominent components exported by Protractor API are listed below.
 4. `locators`: Locators provide methods for finding an element in an Angular application. 
 
 Since we will be using locators very often, here are some of the commonly used locators.
-*. `by.css('selector-name')`: This is by far the commonly used locator for finding an element based on the name of the CSS selector.
-*. `by.name('name-value')`: Locates an element with a matching value for the name attribute.
-*. `by.buttonText('button-value')`: Locates a button element or an array of button elements based on the inner text. [Ref](https://code.tutsplus.com/tutorials/getting-started-with-end-to-end-testing-in-angular-using-protractor--cms-29318)
+* `by.css('selector-name')`: This is by far the commonly used locator for finding an element based on the name of the CSS selector.
+* `by.name('name-value')`: Locates an element with a matching value for the name attribute.
+* `by.buttonText('button-value')`: Locates a button element or an array of button elements based on the inner text. [Ref](https://code.tutsplus.com/tutorials/getting-started-with-end-to-end-testing-in-angular-using-protractor--cms-29318)
 
 ### Add Debugging support
 ```json
