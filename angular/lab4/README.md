@@ -110,6 +110,17 @@ export class AppPage {
 ```
 Now, lets run our test suite using `npm run e2e`. __Don't forget to start the server before running test__.
 
+The prominent components exported by Protractor API are listed below.
+1. `browser()`: You should call `browser()` for all the browser-level operations such as navigation, debugging, etc. 
+2. `element()`: This is used to look up an element in the DOM based on a search condition or a chain of conditions. It returns an ElementFinder object, and you can perform actions such as `getText()` or `click()` on them.
+3. `element.all()`: This is used to look for an array of elements that match some chain of conditions. It returns an ElementArrayFinder object. All the actions that can be performed on ElementFinder can be performed on ElementArrayFinder also.
+4. `locators`: Locators provide methods for finding an element in an Angular application. 
+
+Since we will be using locators very often, here are some of the commonly used locators.
+*. `by.css('selector-name')`: This is by far the commonly used locator for finding an element based on the name of the CSS selector.
+*. `by.name('name-value')`: Locates an element with a matching value for the name attribute.
+*. `by.buttonText('button-value')`: Locates a button element or an array of button elements based on the inner text. [Ref](https://code.tutsplus.com/tutorials/getting-started-with-end-to-end-testing-in-angular-using-protractor--cms-29318)
+
 ### Add Debugging support
 ```json
 {
