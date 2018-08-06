@@ -13,6 +13,15 @@ The Angular CLI is a tool to initialize, develop, scaffold and maintain Angular 
 The following command installs the Angular CLI globally
 > npm install -g @angular/cli
 
+To update the CLI version, you should uninstall it and reinstall it with the following commands:
+
+> npm uninstall -g angular-cli
+
+> npm cache clean
+
+> npm install -g angular-cli
+
+
 # New Project
 Generating and serving an Angular project via a development server Create and run a new project:
 * ng new my-project
