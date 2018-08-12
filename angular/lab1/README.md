@@ -63,7 +63,7 @@ Finally, you should following output
 
  > npm install bootstrap --save
 
-Now you should see `"bootstrap": "^4.1.1",` in package.json file under dependencies.
+Now you should see `"bootstrap": "^4.1.3",` in package.json file under dependencies.
 
 Similarly add jQuery package. jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers. With a combination of versatility and extensibility, jQuery has changed the way that millions of people write JavaScript. [more](https://jquery.com/)
 
@@ -75,19 +75,23 @@ After both packages have been installed successfully, the jQuery and Bootstrap f
 * node_modules/bootstrap/dist/css/bootstrap.min.css
 * node_modules/bootstrap/dist/js/bootstrap.min.js
 
-Add the file paths to the styles and scripts array in file `.angular-cli.json`:
+Add the file paths to the styles and scripts array in file `angular.json`:
 
 ```json
 "styles": [
-        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "./node_modules/bootstrap/dist/css/bootstrap.min.css",
         "styles.css"
       ],
 "scripts": [
-        "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js"
+        "./node_modules/jquery/dist/jquery.min.js",
+        "./node_modules/bootstrap/dist/js/bootstrap.min.js"
       ],
 ```
-**Note**: Always restart the server when you make changes in `.angular-cli.json` file
+**Note**: Always restart the server when you make changes in `angular.json` file
+
+Angular CLI v6 supports the addition of packages through the ng add command which executes in one step the set of otherwise individually needed commands.
+
+> ng add bootstrap
 
 # Update default page
 Now, it is time to update default page. Update following HTML in `app.component.html` page
