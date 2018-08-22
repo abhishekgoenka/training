@@ -133,7 +133,14 @@ Forms are the mainstay of business applications. You use forms to log in, submit
 
 Angular offers two form-building technologies
 1. **Template-driven forms** - You can build forms by writing templates in the Angular template syntax with the form-specific directives and techniques described in this page. [more](https://angular.io/guide/forms)
+
+    * Advantages - Simple, quick to get started, perfect for simple forms, don’t need to know how form model objects work
+    * Disadvantages - HTML and business rules are coupled, no unit testing
+    
 2. **Reactive forms** - Angular reactive forms facilitate a reactive style of programming that favors explicit management of the data flowing between a non-UI data model (typically retrieved from a server) and a UI-oriented form model that retains the states and values of the HTML controls on screen. Reactive forms offer the ease of using reactive patterns, testing, and validation. [more](https://angular.io/guide/reactive-forms)
+
+    * Advantages - More control, perfect for more advanced forms, enable unit testing, HTML and business rules are decoupled
+    * Disadvantages - Need to know how form model objects work, take more time to develop
 
 Add `FormsModule` to `app.module.ts`
 ```typescript
