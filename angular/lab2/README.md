@@ -127,6 +127,17 @@ report.component.html
   </tbody>
 </table>
 ```
+# Providers
+There are 4 types of providers
+* Class Provider (useClass)
+* FactoryProvider (useFactory)
+* Aliased Class Provider (useExisting)
+* Value Provider (useValue)
+
+Few useful links
+* [https://www.concretepage.com/angular-2/angular-2-4-providers-example](https://www.concretepage.com/angular-2/angular-2-4-providers-example)
+* [https://medium.com/front-end-hacking/angular-2-an-introduction-of-bootstrap-and-providers-1c60ffbb7604](https://medium.com/front-end-hacking/angular-2-an-introduction-of-bootstrap-and-providers-1c60ffbb7604)
+
 
 # Angular Forms
 Forms are the mainstay of business applications. You use forms to log in, submit a help request, place an order, book a flight, schedule a meeting, and perform countless other data-entry tasks. [more](https://angular.io/guide/forms) 
