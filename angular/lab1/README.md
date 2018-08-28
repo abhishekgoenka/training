@@ -233,7 +233,16 @@ Update following `html` in file `app.component.html`
     </div>
 </nav>
 ```
+# Objects in the Router Module
 
-
-
-
+Object | Type | Description
+------------ | ------------- | -------------
+RouterModule | Module | a separate angular module that provides the necessary service providers and directives for navigating through application views.
+Router | | displays the application component for the active urL. Manages navigation from one component to the next.
+Routes | | defnes an array of routes, each mapping a urL path to a component.
+Route | | defnes how the router should navigate to a component based on a urL pattern. Most routes consist of a path and a component type.
+RouterOutlet | Directive | The directive (`<router-outlet>`) that marks where the router displays a view.
+RouterLink | Directive | The directive for binding a clickable htML element to a route. Clicking an element with a RouterLink directive that’s bound to a string or a link parameters array triggers a navigation.
+RouterLinkActive | Directive | The directive for adding/removing classes from an HTML element when an associated RouterLink contained on or inside the element becomes active/inactive.
+ActivatedRoute | | A service that’s provided to each route component that contains route-specifc information such as route parameters, static data, resolve data, global query params, and the global fragment.
+RouterState | | The current state of the router including a tree of the currently activated routes together with convenience methods for traversing the route tree.

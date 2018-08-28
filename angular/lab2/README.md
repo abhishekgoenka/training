@@ -127,13 +127,31 @@ report.component.html
   </tbody>
 </table>
 ```
+# Providers
+There are 4 types of providers
+* Class Provider (useClass)
+* FactoryProvider (useFactory)
+* Aliased Class Provider (useExisting)
+* Value Provider (useValue)
+
+Few useful links
+* [https://www.concretepage.com/angular-2/angular-2-4-providers-example](https://www.concretepage.com/angular-2/angular-2-4-providers-example)
+* [https://medium.com/front-end-hacking/angular-2-an-introduction-of-bootstrap-and-providers-1c60ffbb7604](https://medium.com/front-end-hacking/angular-2-an-introduction-of-bootstrap-and-providers-1c60ffbb7604)
+
 
 # Angular Forms
 Forms are the mainstay of business applications. You use forms to log in, submit a help request, place an order, book a flight, schedule a meeting, and perform countless other data-entry tasks. [more](https://angular.io/guide/forms) 
 
 Angular offers two form-building technologies
 1. **Template-driven forms** - You can build forms by writing templates in the Angular template syntax with the form-specific directives and techniques described in this page. [more](https://angular.io/guide/forms)
+
+    * Advantages - Simple, quick to get started, perfect for simple forms, don’t need to know how form model objects work
+    * Disadvantages - HTML and business rules are coupled, no unit testing
+    
 2. **Reactive forms** - Angular reactive forms facilitate a reactive style of programming that favors explicit management of the data flowing between a non-UI data model (typically retrieved from a server) and a UI-oriented form model that retains the states and values of the HTML controls on screen. Reactive forms offer the ease of using reactive patterns, testing, and validation. [more](https://angular.io/guide/reactive-forms)
+
+    * Advantages - More control, perfect for more advanced forms, enable unit testing, HTML and business rules are decoupled
+    * Disadvantages - Need to know how form model objects work, take more time to develop
 
 Add `FormsModule` to `app.module.ts`
 ```typescript

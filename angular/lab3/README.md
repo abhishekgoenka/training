@@ -73,14 +73,14 @@ Install ng2-toastr using npm:
 Include js and css files in angular-cli.json
 ```json
  "styles": [
-        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "../node_modules/toastr/build/toastr.min.css",
+        "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "./node_modules/toastr/build/toastr.min.css",
         "styles.css"
       ],
       "scripts": [
-        "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
-        "../node_modules/toastr/build/toastr.min.js"
+        "./node_modules/jquery/dist/jquery.min.js",
+        "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "./node_modules/toastr/build/toastr.min.js"
       ],
 ```
 
@@ -211,6 +211,14 @@ Two types of test cases we can write in Angular.
 We will use following tools
 1. Karma - Spectacular Test Runner for Javascript [more](https://karma-runner.github.io/2.0/index.html)
 2. Jasmine - Jasmine is a behavior-driven development framework for testing JavaScript code. It does not depend on any other JavaScript frameworks. It does not require a DOM. And it has a clean, obvious syntax so that you can easily write tests. [more](https://jasmine.github.io/)
+
+## Jasmine Concepts
+Name | Description | Code Keyword
+------------ | ------------- | -------------
+Suite | Described set of tests that corresponds to an area of code that needs testing. there is usually one suite of tests per unit test fle, such as app. component.suite.ts. however, you can have more than one described set of tests in a unit test fle. | describe
+Spec | A test that performs code and checks the result against expectations. there can be multiple specs in a suite. | it
+Expectations | Used within a test to check the result. | expect
+Matchers | Used by an expectation to specify the expectation as a rule. | toBe, toEqual, toBeNull, toContain, toThrow, toThrowError, and so on
 
 ## Writing Good Unit Tests
 * **Arrange** all necessary preconditions and inputs
