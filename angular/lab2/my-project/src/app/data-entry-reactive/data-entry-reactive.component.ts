@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Post } from '../post';
-import { DataService } from '../data.service';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Post } from '../Post';
+import { DataService } from 'src/app/data.service';
+import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-data-entry-reactive',
@@ -11,10 +11,9 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 export class DataEntryReactiveComponent implements OnInit {
   isSuccess = false;
   postForm: FormGroup;
-  constructor(private fb: FormBuilder,
-    private dataService: DataService) {
-      this.createForm();
-    }
+  constructor(private dataService: DataService, private fb: FormBuilder) {
+    this.createForm();
+   }
 
   ngOnInit() {
   }

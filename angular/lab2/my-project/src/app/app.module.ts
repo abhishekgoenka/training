@@ -10,7 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { DataService } from './data.service';
 import { DataEntryReactiveComponent } from './data-entry-reactive/data-entry-reactive.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +24,9 @@ import { DataEntryReactiveComponent } from './data-entry-reactive/data-entry-rea
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [DataService],
+  providers: [
+    DataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

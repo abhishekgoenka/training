@@ -1,6 +1,3 @@
-/**
- * Post model
- */
 export class Post {
   userId: number;
   id: number;
