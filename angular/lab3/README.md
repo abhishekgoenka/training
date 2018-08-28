@@ -73,14 +73,14 @@ Install ng2-toastr using npm:
 Include js and css files in angular-cli.json
 ```json
  "styles": [
-        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "../node_modules/toastr/build/toastr.min.css",
+        "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "./node_modules/toastr/build/toastr.min.css",
         "styles.css"
       ],
       "scripts": [
-        "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
-        "../node_modules/toastr/build/toastr.min.js"
+        "./node_modules/jquery/dist/jquery.min.js",
+        "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "./node_modules/toastr/build/toastr.min.js"
       ],
 ```
 
