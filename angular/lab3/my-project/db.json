@@ -5,6 +5,24 @@
       "userId": 1,
       "title": "json-server",
       "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+    },
+    {
+      "userId": "32",
+      "title": "dfasaf",
+      "body": "safsafdafdsaf asa fsaf",
+      "id": 2
+    },
+    {
+      "userId": "sdfdsa",
+      "title": "safd",
+      "body": "safd",
+      "id": 3
+    },
+    {
+      "userId": "3243",
+      "title": "Abhishek333",
+      "body": "abhishek 33",
+      "id": 4
     }
   ],
   "comments": [
