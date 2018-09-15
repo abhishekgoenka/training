@@ -3,9 +3,9 @@ import { DataEntryComponent } from './data-entry.component';
 import { DataService } from '../data.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { of } from 'rxjs/observable/of';
-import { Post } from '../model/post';
 import { By } from '@angular/platform-browser';
+import { Post } from '../model/post';
+import { of } from 'rxjs';
 
 describe('DataEntryComponent Edit', () => {
   let fixture: ComponentFixture<DataEntryComponent>;
@@ -44,8 +44,8 @@ describe('DataEntryComponent Edit', () => {
     fixture.detectChanges();
 
     expect(component.editMode).toBeTruthy();
-    expect(component.post.id).toBe(1);
-    expect(component.post.title).toBe('dummy title');
+    expect(component.data.id).toBe(1);
+    expect(component.data.title).toBe('dummy title');
 
     expect(mockdataService.postById).toHaveBeenCalledTimes(1);
 

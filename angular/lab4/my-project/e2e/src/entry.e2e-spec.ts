@@ -1,21 +1,12 @@
-import { AppPage } from './po/app.po';
-import { EntryPage } from './po/entry.po';
+import { EntryPage } from './entry.po';
 import { browser } from 'protractor';
 
 describe('my-project App', () => {
-  let page: AppPage;
   let entry: EntryPage;
 
-  beforeAll(() => {
-    page = new AppPage();
+  beforeEach(() => {
     entry = new EntryPage();
   });
-
-  it('should have right title', () => {
-    page.navigateTo();
-    expect(page.getPageTitle()).toEqual('MyProject');
-  });
-
   it('should be on entry page', () => {
     entry.getCurrentUrl().then(url => {
       expect(url).toContain('/entry');

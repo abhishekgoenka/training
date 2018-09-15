@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Post } from '../model/post';
 import { Router } from '@angular/router';
-import { ApplicationError } from '../model/ApplicationError';
+import { ApplicationError } from '../model/application-error';
 
 declare var toastr;
 @Component({
@@ -11,17 +11,21 @@ declare var toastr;
   styleUrls: ['./report.component.css']
 })
 export class ReportComponent implements OnInit {
+  constructor(private dataService: DataService, private router: Router) {
+  }
   posts: Array<Post>;
-  constructor(
-      private router: Router,
-      private dataService: DataService) { }
 
   ngOnInit() {
-    this.dataService.posts().subscribe((data: Array<Post>) => this.posts = data);
+    this.dataService.posts().subscribe((data: Post[]) => {
+      this.posts = data;
+    });
   }
 
   delete(post: Post) {
-    this.dataService.deletePost(post).subscribe(() => toastr.success(`Record deleted`)
+    this.dataService.deletePost(post.id).subscribe(() => {
+      this.ngOnInit();
+      toastr.success(`Record deleted`);
+    }
     , (error: ApplicationError) => toastr.error(`Error Occurred : ${error.errorMsg}`));
   }
 

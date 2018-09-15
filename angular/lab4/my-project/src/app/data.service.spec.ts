@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import { DataService } from './data.service';
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { Post } from './model/post';
-import { ApplicationError } from './model/ApplicationError';
+import { ApplicationError } from './model/application-error';
 
 describe('DataService', () => {
   let httpTestingController: HttpTestingController;

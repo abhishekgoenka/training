@@ -3,6 +3,7 @@ export class EntryPage {
   getCurrentUrl(): promise.Promise<string> {
     return browser.getCurrentUrl();
   }
+
   setValue(ele: string, val: string) {
     return element(by.id(ele)).sendKeys(val);
   }
