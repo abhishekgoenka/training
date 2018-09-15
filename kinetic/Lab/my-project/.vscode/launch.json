@@ -1,0 +1,36 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+      {
+          "type": "node",
+          "request": "launch",
+          "name": "Run Protractor",
+          "program": "${workspaceRoot}/node_modules/protractor/bin/protractor",
+          "args": ["${workspaceRoot}/protractor.conf.js"]
+      },
+      {
+        "name": "Launch Chrome",
+        "type": "chrome",
+        "request": "launch",
+        "url": "http://localhost:4200/",
+        "sourceMaps": true,
+        "webRoot": "${workspaceRoot}",
+        "trace": true,
+        "sourceMapPathOverrides": {
+          "webpack:///./*": "${webRoot}/*"
+        }
+      },
+      {
+        "name": "Attach to Chrome Test",
+        "type": "chrome",
+        "request": "launch",
+        "sourceMaps": true,
+        "trace": true,
+        "webRoot": "${workspaceRoot}",
+        "url": "http://localhost:9876/",
+        "sourceMapPathOverrides": {
+          "webpack:///./*": "${webRoot}/*"
+        }
+      }
+  ]
+}
