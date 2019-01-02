@@ -7,6 +7,12 @@
 *   Understand various Angular files
 *   Understand routing
 
+# Node
+Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
+
+## NPM
+You can use NPM to handle both production and development dependencies. Production dependencies are modules that must be present for your application to run. Development dependencies include tooling and type definitions that you only need while coding and that you don’t need when running the application.
+
 # Install Angular CLI
 The Angular CLI is a tool to initialize, develop, scaffold and maintain Angular applications. [wiki](https://github.com/angular/angular-cli/wiki)
 
