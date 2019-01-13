@@ -38,7 +38,7 @@ Generating and serving an Angular project via a development server Create and ru
 ```json
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --open",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -50,7 +50,7 @@ Add `--open` to start script. This will open the url in default browser.
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
-    "build": "ng build --prod",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -239,20 +239,23 @@ Now you have routes configured and a place to render them, but how do you naviga
 Update following `html` in file `app.component.html`
 ```html
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-    <a class="navbar-brand" href="#">My App</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/entry" routerLinkActive="active">Data Entry</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" routerLink="/report" routerLinkActive="active">Report</a>
-        </li>
-      </ul>
-    </div>
+  <a class="navbar-brand" href="#">My App</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link"routerLink="/dashboard" routerLinkActive="active" >Dashboard </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  routerLink="/entry" routerLinkActive="active">Data Entry</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/report" routerLinkActive="active">Report</a>
+      </li>
+    </ul>
+  </div>
 </nav>
 ```
 # Objects in the Router Module
