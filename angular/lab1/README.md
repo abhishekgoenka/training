@@ -38,8 +38,8 @@ Generating and serving an Angular project via a development server Create and ru
 ```json
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build --prod",
+    "start": "ng serve --open",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -69,7 +69,7 @@ Finally, you should following output
 
  > npm install bootstrap --save
 
-Now you should see `"bootstrap": "^4.1.3",` in package.json file under dependencies.
+Now you should see `"bootstrap": "^4.2.1",` in package.json file under dependencies.
 
 Similarly add jQuery package. jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, animation, and Ajax much simpler with an easy-to-use API that works across a multitude of browsers. With a combination of versatility and extensibility, jQuery has changed the way that millions of people write JavaScript. [more](https://jquery.com/)
 
@@ -95,7 +95,7 @@ Add the file paths to the styles and scripts array in file `angular.json`:
 ```
 **Note**: Always restart the server when you make changes in `angular.json` file
 
-Angular CLI v6 supports the addition of packages through the ng add command which executes in one step the set of otherwise individually needed commands.
+**Angular CLI v6** supports the addition of packages through the ng add command which executes in one step the set of otherwise individually needed commands.
 
 > ng add bootstrap
 
@@ -111,7 +111,10 @@ Now, it is time to update default page. Update following HTML in `app.component.
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Data Entry <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/entry">Data Entry</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/report">Report</a>
@@ -135,15 +138,21 @@ You should now see following output
 # Add Routing & Navigation
 The Angular Router enables navigation from one view to the next as users perform application tasks. [more](https://angular.io/guide/router)
 
-We have 2 links. Therefore, we will need 2 new components. Use `angular-cli` to generate 2 new components
-1. Data Entry
-2. Report
+We have 3 links. Therefore, we will need 3 new components and one `PageNotFound` component. Use `angular-cli` to generate 4 new components
+1. Dashboard
+2. Data Entry
+3. Report
+4. PageNotFound -> When route doesn't match
+
+> ng g component Dashboard
 
 > ng g component DataEntry
 
 > ng g component Report
 
-You should now see 2 new folders under app directory. Create routing module
+> ng g component PageNotFound --skip-import --inline-style --spec=false
+
+You should now see 3 new folders under app directory. Create routing module
 
 > ng g module appRouting --flat
 
@@ -152,20 +161,27 @@ Add following code to newly created file
 app-routing.module.ts
 ```typescript
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { DataEntryComponent } from './data-entry/data-entry.component';
 import { ReportComponent } from './report/report.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/dashboard',
+    pathMatch: 'full'
+  },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'entry', component: DataEntryComponent },
+  { path: 'report', component: ReportComponent },
+  { path: '**', component: PageNotFoundComponent },
+];
+
 @NgModule({
   imports: [
-    RouterModule.forRoot([
-      {
-        path: '',
-        redirectTo: '/entry',
-        pathMatch: 'full'
-      },
-      { path: 'entry', component: DataEntryComponent },
-      { path: 'report', component: ReportComponent }
-    ])
+    RouterModule.forRoot(routes)
   ],
   exports: [RouterModule]
 })
