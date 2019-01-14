@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DataEntryComponent } from './data-entry/data-entry.component';
-import { ReportComponent } from './report/report.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -11,10 +8,10 @@ const routes: Routes = [
     redirectTo: '/dashboard',
     pathMatch: 'full'
   },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'entry', component: DataEntryComponent },
-  { path: 'report', component: ReportComponent },
-  { path: '**', component: PageNotFoundComponent },
+  { path: 'dashboard', component: DashboardComponent},
+  { path: 'entry',  loadChildren: './data-entry/data-entry.module#DataEntryModule' },
+  { path: 'report', loadChildren: './report/report.module#ReportModule' },
+  { path: '**', loadChildren: './page-not-found/page-not-found.module#PageNotFoundModule' },
 ];
 
 @NgModule({
