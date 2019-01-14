@@ -276,7 +276,7 @@ RouterState | | The current state of the router including a tree of the currentl
 # Lazy Loading
 Before we can lazy load a module, the feature area to lazy load must meet a few requirements. The feature area must be defined in its own feature module, that's because lazy loading loads all of the components declared in one specific Angular module. [Read More](https://angular.io/guide/lazy-loading-ngmodules)
 
-Move Dashboard, DataEntry and Report to own feature module.
+Move DataEntry and Report to own feature module.
 
 > ng g m dataEntry
 
@@ -308,7 +308,7 @@ const routes: Routes = [
 })
 export class DataEntryModule { }
 ```
-Here, we’re using an empty path because these will be the relative routes for this module, not for the entire application. Also, for the same reason, we use RouterModule.forChild() instead of forRoot().
+Here, we’re using an empty path because these will be the relative routes for this module, not for the entire application. Also, for the same reason, we use **RouterModule.forChild()** instead of forRoot().
 
 However, our `app.module.ts` contains a reference to our `DataEntryComponent` and `ReportComponent`. We need to remove that or the DataEntryComponent will be downloaded with our other application files. We delete it here and delete the import statement for it here. 
 
