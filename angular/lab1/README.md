@@ -6,6 +6,7 @@
 *   Bootstrap Angular App 
 *   Understand various Angular files
 *   Understand routing
+*   Lazy Loading
 
 # Node
 Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
@@ -271,3 +272,98 @@ RouterLink | Directive | The directive for binding a clickable htML element to a
 RouterLinkActive | Directive | The directive for adding/removing classes from an HTML element when an associated RouterLink contained on or inside the element becomes active/inactive.
 ActivatedRoute | | A service that’s provided to each route component that contains route-specifc information such as route parameters, static data, resolve data, global query params, and the global fragment.
 RouterState | | The current state of the router including a tree of the currently activated routes together with convenience methods for traversing the route tree.
+
+# Lazy Loading
+Before we can lazy load a module, the feature area to lazy load must meet a few requirements. The feature area must be defined in its own feature module, that's because lazy loading loads all of the components declared in one specific Angular module. [Read More](https://angular.io/guide/lazy-loading-ngmodules)
+
+Move DataEntry and Report to own feature module.
+
+> ng g m dataEntry
+
+> ng g m report
+
+Add following code to `data-entry.module`
+```typescript
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DataEntryComponent } from './data-entry.component';
+import { Routes, RouterModule } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: DataEntryComponent,
+    pathMatch: 'full'
+  }
+];
+
+@NgModule({
+  declarations: [
+    DataEntryComponent
+  ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes)
+  ]
+})
+export class DataEntryModule { }
+```
+Here, we’re using an empty path because these will be the relative routes for this module, not for the entire application. Also, for the same reason, we use **RouterModule.forChild()** instead of forRoot().
+
+However, our `app.module.ts` contains a reference to our `DataEntryComponent` and `ReportComponent`. We need to remove that or the DataEntryComponent will be downloaded with our other application files. We delete it here and delete the import statement for it here. 
+
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+## Lazy-loading the new module
+Now we need to go to `app-routing.module.ts` and create another route for our new LazyModule: we won’t specify any component! Instead, we’ll specify the path to the module, followed by the name of the module’s class with a hashtag. Also, we’ll use the special keyword loadChildren:
+```typescript
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { DashboardComponent } from './dashboard/dashboard.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/dashboard',
+    pathMatch: 'full'
+  },
+  { path: 'dashboard', component: DashboardComponent},
+  { path: 'entry',  loadChildren: './data-entry/data-entry.module#DataEntryModule' },
+  { path: 'report', loadChildren: './report/report.module#ReportModule' },
+  { path: '**', loadChildren: './page-not-found/page-not-found.module#PageNotFoundModule' },
+];
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes)
+  ],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+```
+
+### References
+- https://angularfirebase.com/lessons/how-to-lazy-load-components-in-angular-4-in-three-steps/
+- https://angular.io/guide/lazy-loading-ngmodules
+- https://medium.com/@michelestieven/lazy-loading-angular-modules-27856e940bb0
