@@ -56,6 +56,8 @@ Create `data.service.ts` using `angular.cli`
 
 Register `DataService` to `app.module.ts` under `providers`. A provider is an instruction to the DI system on how to obtain a value for a dependency. Most of the time, these dependencies are services that you create and provide. [more](https://angular.io/guide/providers)
 
+Angular 6 onwards it is done by employing new `providedIn` property of the `@Injectable` decorator. [more](https://medium.com/@tomastrajan/total-guide-to-angular-6-dependency-injection-providedin-vs-providers-85b7a347b59f)
+
 you need to import the Angular `HttpClientModule`. [more](https://angular.io/guide/http)
 ```typescript
 @NgModule({
@@ -171,15 +173,15 @@ Now that the `DataEntryComponent` is available and has been added to AppModule w
 <form (ngSubmit)="onSubmit()" #postForm="ngForm">
   <div class="form-group">
     <label for="UserId">UserId</label>
-    <input type="text" class="form-control" id="UserId" name="UserId" required [(ngModel)] = "post.userId">
+    <input type="text" class="form-control" id="UserId" name="UserId" required [(ngModel)] = "data.userId">
   </div>
   <div class="form-group">
     <label for="title">Title</label>
-    <input type="text" class="form-control" id="title" name="title" required [(ngModel)] = "post.title">
+    <input type="text" class="form-control" id="title" name="title" required [(ngModel)] = "data.title">
   </div>
   <div class="form-group">
       <label for="body">Body</label>
-      <textarea type="text" class="form-control" id="body" name="body" rows="5" [(ngModel)] = "post.body"></textarea>
+      <textarea type="text" class="form-control" id="body" name="body" rows="5" [(ngModel)] = "data.body"></textarea>
   </div>
   <button type="submit" class="btn btn-success">Submit</button>
 </form>
@@ -190,7 +192,7 @@ Now that the form template is ready and the form is displayed in the browser we 
  
 To enable two-way data binding we need to extend the form template and use the `ngModel` directive in the input elements. The extended form template code with ngModel looks like the following:
 
-`<input type="text" class="form-control" id="UserId" name="UserId" required [(ngModel)] = "post.userId">`
+`<input type="text" class="form-control" id="UserId" name="UserId" required [(ngModel)] = "data.userId">`
 
 Notice that, together with `ngModel`, we also added the `name` attribute to each element. We're assinging a unique string value to this attribute. Defining a `name` attribute is a requirement when using `[(ngModel)]` in combination with a form. Why is this a requirement? For each input element with a `name` attribute assigned Angular 2 created internally a FormControl. Furthermore these FormControls are registered with an `NgForm` directive which is automatically created for each `<form>` element in the template code. Each `FormControl` is registered under the `name` we assigned to the `name` attribute.
 
@@ -201,21 +203,21 @@ Notice that, together with `ngModel`, we also added the `name` attribute to each
 <form (ngSubmit)="onSubmit()" #postForm="ngForm">
   <div class="form-group">
     <label for="UserId">UserId</label>
-    <input type="text" class="form-control" id="UserId" name="UserId" required [(ngModel)] = "post.userId" #UserId="ngModel">
+    <input type="text" class="form-control" id="UserId" name="UserId" required [(ngModel)] = "data.userId" #UserId="ngModel">
     <div [hidden]="UserId.valid || UserId.pristine" class="alert alert-danger">
           User Id is required
     </div>
   </div>
   <div class="form-group">
     <label for="title">Title</label>
-    <input type="text" class="form-control" id="title" name="title" required [(ngModel)] = "post.title" #Title="ngModel">
+    <input type="text" class="form-control" id="title" name="title" required [(ngModel)] = "data.title" #Title="ngModel">
     <div [hidden]="Title.valid || Title.pristine" class="alert alert-danger">
         Title is required
   </div>
   </div>
   <div class="form-group">
       <label for="body">Body</label>
-      <textarea type="text" class="form-control" id="body" name="body" rows="5" [(ngModel)] = "post.body"></textarea>
+      <textarea type="text" class="form-control" id="body" name="body" rows="5" [(ngModel)] = "data.body"></textarea>
   </div>
   <button type="submit" class="btn btn-success" [disabled]="!postForm.form.valid">Submit</button>
 </form>
@@ -254,18 +256,22 @@ Todo
 
 # Reactive forms
 Create a new component so we don't pollute existing.
+
+> ng g m dataEntryReactive --routing=true
+
 > ng g component dataEntryReactive --spec=false --inline-style
 
 # Import the ReactiveFormsModule
 To create a Reactive form, you need to import  the `ReactiveFormsModule` from @angular/forms and add it to the imports array in `app.module.ts`.
 ```typescript
+@NgModule({
+  declarations: [DataEntryReactiveComponent],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
+    CommonModule,
+    ReactiveFormsModule,
+    DataEntryReactiveRoutingModule
+  ]
+})
 ```
 
 # Tracking the State Using FormControl
