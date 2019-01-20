@@ -367,3 +367,4 @@ export class AppRoutingModule { }
 - https://angularfirebase.com/lessons/how-to-lazy-load-components-in-angular-4-in-three-steps/
 - https://angular.io/guide/lazy-loading-ngmodules
 - https://medium.com/@michelestieven/lazy-loading-angular-modules-27856e940bb0
+- [Angular Router - by Victor Savkin](https://www.amazon.com/Angular-Router-Victor-Savkin/dp/1787288900)
