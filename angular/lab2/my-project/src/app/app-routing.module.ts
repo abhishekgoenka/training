@@ -8,6 +8,7 @@ const routes: Routes = [
     redirectTo: '/dashboard',
     pathMatch: 'full'
   },
+
   { path: 'dashboard', component: DashboardComponent},
   { path: 'entry',  loadChildren: './data-entry/data-entry.module#DataEntryModule' },
   { path: 'entryreactive',  loadChildren: './data-entry-reactive/data-entry-reactive.module#DataEntryReactiveModule' },

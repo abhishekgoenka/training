@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   imports: [
     BrowserModule,
     HttpClientModule,
+    UserModule,
     AppRoutingModule
   ],
   providers: [],
