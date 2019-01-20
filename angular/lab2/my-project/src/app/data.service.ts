@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Post } from './Post';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Post } from './post';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +9,7 @@ import { Observable } from 'rxjs';
 export class DataService {
 
   private URL = 'https://jsonplaceholder.typicode.com';
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) { }
 
   posts(): Observable<Array<Post>> {
     return this.http.get<Array<Post>>(`${this.URL}/posts`);
@@ -20,4 +19,3 @@ export class DataService {
     return this.http.post<Post>(`${this.URL}/posts`, newPost);
   }
 }
-

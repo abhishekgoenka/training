@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { Post } from 'src/app/Post';
+import { Post } from '../post';
 
 @Component({
   selector: 'app-report',
@@ -8,14 +8,11 @@ import { Post } from 'src/app/Post';
   styleUrls: ['./report.component.css']
 })
 export class ReportComponent implements OnInit {
-  constructor(private dataService: DataService) {
-  }
-  posts: Array<Post>;
+  posts: Post[];
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    this.dataService.posts().subscribe(data => {
-      this.posts = data;
-    });
+    this.dataService.posts().subscribe((data: Array<Post>) => this.posts = data);
   }
 
 }
