@@ -4,8 +4,8 @@ import { DataService } from '../data.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { Post } from '../model/post';
 import { of } from 'rxjs';
+import { Post } from '../post';
 
 describe('DataEntryComponent Edit', () => {
   let fixture: ComponentFixture<DataEntryComponent>;

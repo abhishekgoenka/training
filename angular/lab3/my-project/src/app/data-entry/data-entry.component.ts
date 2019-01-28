@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Post } from '../model/post';
-import { NgForm } from '@angular/forms';
+import { Post } from '../post';
+import { Observable } from 'rxjs';
 import { DataService } from '../data.service';
 import { ActivatedRoute } from '@angular/router';
-import { ApplicationError } from '../model/application-error';
 declare var toastr;
 
 @Component({
@@ -22,17 +21,15 @@ export class DataEntryComponent implements OnInit {
       this.dataService.postById(id).subscribe((p: Post) => {
         this.data = p;
         this.editMode = true;
-      });
+      }, () => toastr.error(`Error Occurred`));
     }
   }
 
   onSubmit() {
     if (this.editMode) {
-      this.dataService.updatePost(this.data).subscribe(() => toastr.success(`Record Updated`)
-      , (error: ApplicationError) => toastr.error(`Error Occurred : ${error.errorMsg}`));
+      this.dataService.updatePost(this.data).subscribe(() => toastr.success(`Record Updated`), () => toastr.error(`Error Occurred`));
     } else {
-      this.dataService.addPost(this.data).subscribe(() => toastr.success(`Record saved`)
-      , (error: ApplicationError) => toastr.error(`Error Occurred : ${error.errorMsg}`));
-}
+      this.dataService.addPost(this.data).subscribe(() => toastr.success(`Record saved`), () => toastr.error(`Error Occurred`));
+    }
   }
 }
