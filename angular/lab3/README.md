@@ -175,7 +175,7 @@ Use this method in data-entry.component.ts
     const id = +this.route.snapshot.paramMap.get('id');
     if (id) {
       this.dataService.postById(id).subscribe((p: Post) => {
-        this.post = p;
+        this.data = p;
         this.editMode = true;
       }, () => toastr.error(`Error Occurred`));
     }
@@ -191,13 +191,36 @@ Add a method in `data.service.ts` to update post by id
 
 Also you will have to update save method
 ```typescript
-onSubmit() {
+  onSubmit() {
     if (this.editMode) {
-      this.dataService.updatePost(this.post).subscribe(() => toastr.success(`Record Updated`), () => toastr.error(`Error Occurred`));
+      this.dataService.updatePost(this.data).subscribe(() => toastr.success(`Record Updated`), () => toastr.error(`Error Occurred`));
     } else {
-      this.dataService.addPost(this.post).subscribe(() => toastr.success(`Record saved`), () => toastr.error(`Error Occurred`));
+      this.dataService.addPost(this.data).subscribe(() => toastr.success(`Record saved`), () => toastr.error(`Error Occurred`));
     }
   }
+```
+
+# ROUTE GUARDS
+A route guard is a feature of the Angular Router that allows developers to run some logic when a route is requested, and based on that logic, it allows or denies the user access to the route. It’s commonly used to check if a user is logged in and has the authorization before he can access a page.
+
+You can add a route guard by implementing the CanActivate interface available from the @angular/router package and extends the canActivate() method which holds the logic to allow or deny access to the route. For example, the following guard will always allow access to a route:
+```typescript
+export class AuthGuard implements CanActivate {
+
+  constructor(private authService: AuthService,
+              private router: Router) { }
+
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    return this.checkLoggedIn(state.url);
+  }
+}
+```
+
+You can then protect a route with the guard using the canActivate attribute:
+```typescript
+{ path: 'entry', canActivate: [ AuthGuard ],  loadChildren: './data-entry/data-entry.module#DataEntryModule' },
 ```
 
 Now all the CRUD operations should be working fine.
