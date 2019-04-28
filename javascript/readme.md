@@ -587,7 +587,7 @@ xhttp.onreadystatechange = function() {
     }
 };
 
-xhttp.open('GET', 'https://5cc57207f24a0f0014cd1cee.mockapi.io/users', true);
+xhttp.open('GET', 'https://someid.mockapi.io/users', true);
 xhttp.send();
 ```
 
@@ -599,11 +599,11 @@ Import in your JavaScript file
 > import $ from 'jquery';
 
 ```typescript
-$.get('https://5cc57207f24a0f0014cd1cee.mockapi.io/users', data => console.log(data));
+$.get('https://someid.mockapi.io/users', data => console.log(data));
 ```
 
 ```typescript
-let promise = $.get('https://5cc57207f24a0f0014cd1cee.mockapi.io/users');
+let promise = $.get('https://someid.mockapi.io/users');
 promise.then(data => console.log(data));
 ```
 
@@ -615,7 +615,7 @@ let user = {
     'id': "1000",
     'name': "Abhishek Goenka"
 }
-let promise = $.post('https://5cc57207f24a0f0014cd1cee.mockapi.io/users', user);
+let promise = $.post('https://someid.mockapi.io/users', user);
 promise.then(data => console.log(data));
 ```
 
