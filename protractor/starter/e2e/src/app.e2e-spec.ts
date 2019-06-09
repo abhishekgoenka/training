@@ -7,8 +7,8 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should start with add post page', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to my-project!');
+    expect(page.getTitleText()).toEqual('Add Post');
   });
 });
